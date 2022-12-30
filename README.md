@@ -12,12 +12,11 @@
 - Game ends when player gives a wrong answer or unbale to answer before time ends
 
 ##### Code
-- The POC will use streamlit for backend hosting
 - The Player will be able to draw numbers on a virtual scetchboard
 - The drawnings are clssified with a machine learnig model trained on the MNIST digits dataset
 - Aritmetic problems are generated with different verbosety
 - The games has levals depending one player score
-- Time limit of 6s
+- Time limit of 10s
 - End game screean statistics
 - Suggestions on Aritmetic "tricks" for solving probelms in your head.
 
