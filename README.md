@@ -1,2 +1,2 @@
-# Aritmetic
-Aritmetic
+# Arithmetic
+Arithmetic
