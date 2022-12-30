@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Document</title>
+</head>
+<style>
+    .column {
+        float: left;
+        width: fit-content;
+        padding: 10px;
+        height: fit-content; 
+        text-align: left;
+    }
+
+    .row {
+        width: fit-content;
+        margin: 0 auto;
+        left: 0%; right: 0%;
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .player_name {
+        text-transform: uppercase; 
+        text-align: center;
+        width: 80px;
+        height: 30px;
+        font-size: 25px;
+        font-family: 'Games', sans-serif;
+    }
+</style>
+<body>
+    <div id="gameover" class="">
+        <h1 style="font-size: 4rem; color: red;">
+            GAME OVER
+        </h1>
+        <h1 id="high_score">Score <span id="game_score">{{ score_count }}</span></h1>
+        <div class="row">
+            <div class="column" id="heigh_score_names" ></div>
+            <div class="column" id="heigh_score"></div>
+        </div>
+
+        <form class="{{ hide }}" style="margin: 5px;" action="/gameover/" method="post">
+
+            <input type="text" name="name" class="player_name" placeholder="tag" maxlength="4">
+            <input type="hidden" name="score" value="{{ score_count }}">
+            <input type="hidden" id="player_name" name="player_name" value="{{ player_name }}">
+            <input type="hidden" id="player_score" name="player_score" value="{{ player_score }}">
+            <br>
+            <input style="margin: 10px;" type="submit" name="save_score" id="save_score" value="Save Score" >
+        </form>
+        <button onclick="new_game()" id="new_game">
+            New Game
+        </button>
+    </div>
+</body>
+<script>
+
+    let names = document.getElementById('player_name').value.split(', ')
+    let scores = document.getElementById('player_score').value.split(', ')
+    console.log(scores, names);
+    document.getElementById('heigh_score_names').innerHTML = `1. ${names[2].slice(1, -1)}`
+    document.getElementById('heigh_score_names').innerHTML += `<br>2. ${names[1].slice(1, -1)}`
+    document.getElementById('heigh_score_names').innerHTML += `<br>3. ${names[0].slice(1, -1)}`
+    
+    document.getElementById('heigh_score').innerHTML = `- ${scores[2]}`
+    document.getElementById('heigh_score').innerHTML += `<br>- ${scores[1]}`
+    document.getElementById('heigh_score').innerHTML += `<br>- ${scores[0]}`
+
+    function new_game() {
+        let a= document.createElement('a');
+        a.href= '/new_game/';
+        a.click();
+    }
+</script>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c706162be2.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="..//static/favicon.png">
+    <title>Arithmetic</title>
+</head>
+<style>
+a {
+    text-decoration: none;
+}
+</style>
+<body onload="init(), init_game(), sound_off.classList.toggle('hide')">
+    <div id="game_view" class="">
+        <header>
+            <p style=" font-size: small; color: #00b7ff; letter-spacing: 3px;">Draw the correct number</p>
+            <div id="time_bar">
+                <h3 style="margin: 5px 0 0 0; ; letter-spacing: 2px;">Score <span id="score_tag">0</span></h3>
+            </div>
+        </header>
+    
+        <div id="sketchpadapp">
+            <canvas id="sketchpad" height="300" width="300"></canvas>
+        </div>
+
+        <div id="button_bar">
+            <a href="https://undrwolf.com/projects/aritmetic/index.html">
+                <button id="quit" class="system_btns" ><i style='font-size:24px' class="fa fa-power-off" aria-hidden="true"></i></button>
+            </a>
+            
+            <button onclick="clearCanvas(canvas,ctx)" id="submit" class="system_btns" style="width: 80px;" >Erase</button>
+            <button onclick="submit()" id="submit" class="system_btns" style="width: 80px;" >Submit</button>
+
+            
+            <button onclick="sound(1)" id="sound_on"  class="system_btns hide" style="text-align: left;"><i style='font-size:24px;' class='fas'>&#xf028;</i></button>
+            <button onclick="sound(0)" id="sound_off" class="system_btns hide" style="text-align: left;"><i style='font-size:24px;' class='fas'>&#xf6a9;</i></button>
+        </div>
+        <div id="">
+            <div id="left_blocker"></div>
+            <div id="right_blocker"></div>
+            <div id="text_area"> <p id="text_promt"></p> </div>
+            <h1 style="font-size: 7rem; text-align: center; margin-top: 0px;" id="draw_number"></h1>
+        </div>
+    </div>
+    
+</body>
+<script src="../static/game_audio.js"></script>
+<script src="../static/gmae_gui.js"></script>
+<script src="../static/sketchpad.js"></script>
+<script >
+   
+    // Game variables
+    let time_1s;
+    let number = 0
+    let voice_on = 1
+    let exp_string;
+    let exp_num;
+    let level = 0
+    const answer_time = []
+
+    // function new_num() {
+    //     let old_num = number
+    //     while (old_num == number) {
+    //         number = Math.floor(Math.random() * 10)
+    //     }}
+
+    function stop_game_loop() {
+        clearInterval(time_1s); time_1s = null
+    }
+    function init_game() {
+        expression()
+        setTimeout(function(){
+            init_text_promt(exp_string)
+            // Color Time Bar
+            init_countdown_bar()
+            if (!time_1s) {time_1s = setInterval(game_loop, 1000)}
+        }, 1000)
+    }
+    function stop_all_loops() {
+        stop_game_loop()
+        stop_text()
+        stop_color_bar()
+    }
+    // --------------------- Game --------------------
+    function game_loop() {
+        loop_time = loop_time - 1
+        if (loop_time == 0) {
+            submit()
+        }}
+        function stop_game_loop(){clearInterval(time_1s); time_1s = null;}
+        
+        function submit() {
+            // answer_time.push(10 - loop_time)
+            // let sum = 0
+            // answer_time.forEach(x => {sum += x})
+            // avg_time = sum / answer_time.length
+
+            loop_time = 10
+            stop_all_loops()
+            predict()
+            clearCanvas(canvas,ctx)
+        }
+        function game_score(pred) {
+            if (pred==number) {
+                point_score_sound(); 
+                score = score + 1; score_tag.innerHTML = score
+                init_game()
+            } else {
+                stop_all_loops()
+                let feedback = `Your wrote ${pred}. Correct is ${number}`
+                init_text_promt(feedback)
+                setTimeout(function() {
+                    gameover()
+                }, 5000)
+            }
+    }
+    function predict() {
+        const link = document.createElement('a')
+        link.href = canvas.toDataURL()
+        let link_str = String(link.href.slice(22,))
+
+        let data = {
+            'link': link_str
+        }
+        fetch("/predict/", {
+            "method": "POST",
+            "headers": {"Content-Type": "application/json"},
+            "body": JSON.stringify(data),
+        }).then(function (response) {
+                return response.json();
+            }).then(function (text) {
+                game_score(text.resp)
+            });
+    }
+    function expression() {
+        if (score % 5 == 0) {
+            level = level + 1
+        }
+        fetch(`/expression/${level}`)
+        .then(function (response) {
+                return response.json();
+            }).then(function (text) {
+                console.log(text);
+                number = Number(text.sum)
+                exp_num = text.expression
+                exp_string = text.string
+            });
+    }
+
+    function gameover() {
+        stop_all_loops()
+        let a= document.createElement('a');
+        // a.href= `/scoreboard/${score}/${avg_time.toFixed(2)}`;
+        a.href= `/scoreboard/${score}`;
+        a.click();
+
+    }
+    
+    function test() {
+    }
+    function new_game() {
+        location.reload();
+    }
+
+</script>
+</html>
