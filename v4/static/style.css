@@ -16,10 +16,7 @@
     /* sketchpad */
     --pad_height: 300px ;
     --pad_width:  300px;
-    /* Text_promt */
-    --text_scroll: 80%;
-    --text_promt_width: 100px;
-    --text_blocking: 500px;
+
 }
 /* -------------------SKETCHPAD--------------------- */
 
@@ -64,48 +61,13 @@ body {
 }
 
 /*------------------------ text promt ------------------------*/
-#right_blocker {
-    display: inline;
-    position: absolute;
-    top: var(--text_blocking);
-    right: 0%;
-    /* left: 50%; */
-    left: calc(50% + var(--text_promt_width));
-    z-index: 3;
-    background: linear-gradient(90deg,transparent , var(--background_c) 10%);
-    width: calc(50%);
-    height: 40px;
-}
-#left_blocker {
-    display: inline;
-    position: absolute;
-    right: 50%;
-    top: var(--text_blocking);
-    left: 0%;
-    z-index: 2;
-    background: linear-gradient(90deg, var(--background_c) 90%, transparent);
-    width: calc(50% - var(--text_promt_width)); 
-    height: 40px;
-}
+
 
 #text_promt {
-    position: relative;
-    left: 0; right: 0;
-    margin: 0 auto 0 auto;
-    width: max-content;
-    left: var(--text_scroll);
-    text-align: right;
-    max-width: max-content;
-    font-size: 1.6rem;
+    text-align: center;
 }
 #text_area {
-    position: absolute;
-    left: 0; right: 0;
-    border:  black 2px;
-    top: var(--text_blocking);
-    margin: 0 auto;
-    width: var(--pad_width);
-    overflow-x: hidden;
+    margin: 20px auto;
 }
 
 /*------------------------ Game feedback ------------------------*/
