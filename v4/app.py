@@ -44,6 +44,7 @@ def highscore():
     sorted_value_index = np.argsort(values)
     player_score = [values[i] for i in sorted_value_index][-3:len(sorted_value_index)]
     player_name  = [keys[i] for i in sorted_value_index][-3:len(sorted_value_index)]
+    print(player_name)
     return player_score, player_name
 
 from crop_img import Crop
@@ -125,6 +126,7 @@ def go():
 def scoreboard(score):
 
     player_score, player_name = highscore()
+    print(player_score, player_name)
     insert_score(score)
     return render_template('score_board.html', score_count=score, player_name= str(player_name)[1:-1], player_score=str(player_score)[1:-1])
 
