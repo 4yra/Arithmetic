@@ -78,7 +78,7 @@ class exp:
             if n[0] and n[1] and n[2] != 0:
                 if n[0] != 1 and n[1] != 1:
                     sum = n[0] * n[1] + n[2]
-        expression = f'{n[0]} x {n[1]} - {n[2]}'
+        expression = f'{n[0]} x {n[1]} + {n[2]}'
         string = f'{num[n[0]]} times {num[n[1]]} plus {num[n[2]]}'
         return string, expression, sum
 
