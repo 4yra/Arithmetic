@@ -15,7 +15,7 @@ a {
     text-decoration: none;
 }
 </style>
-<body onload="init(), init_game()">
+<body onload="init(),  init_countdown()">
     <div id="game_view" class="">
         <header>
             <p style=" font-size: small; color: #00b7ff; letter-spacing: 3px;">Draw the correct number</p>
@@ -41,7 +41,7 @@ a {
             <button onclick="sound(0)" id="sound_off" class="system_btns hide" style="text-align: left;"><i style='font-size:24px;' class='fas'>&#xf6a9;</i></button> -->
         </div>
         <div id="">
-            <div id="text_area"> <p id="text_promt"></p> </div>
+            <div id="text_area"> <p style="font-size: 1.6rem;" id="text_promt"></p> </div>
             <h1 style="font-size: 7rem; text-align: center; margin-top: 0px;" id="draw_number"></h1>
         </div>
     </div>
@@ -57,8 +57,23 @@ a {
     let exp_string;
     let exp_num;
     const answer_time = []
+    var cd
 
-
+    function init_countdown() {
+        cd = setInterval(countdown, 1000)
+    }
+    let i = 3
+    function countdown() {
+        console.log(i);
+        document.getElementById('text_promt').innerHTML = `Game starts in <br>${i}`
+        if (i == 0) {
+            clearInterval(cd)
+            setTimeout(function() {
+                init_game()
+            }, 1000)
+        }
+        i = i-1
+    }
     function stop_game_loop() {
         clearInterval(time_1s); time_1s = null
     }
@@ -105,7 +120,7 @@ a {
         const link = document.createElement('a')
         link.href = canvas.toDataURL()
         let link_str = String(link.href.slice(22,))
-
+        document.getElementById('text_promt').innerHTML = 'Checking answer '
         let data = {
             'link': link_str
         }
