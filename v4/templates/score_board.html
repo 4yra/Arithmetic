@@ -33,10 +33,59 @@
         font-size: 25px;
         font-family: 'Games', sans-serif;
     }
+    header {
+        text-align: left;
+        z-index: 0;
+        position: relative;
+        margin: 0 auto;
+        top: 15px;
+        width: 98vw;
+        border: 0;
+    }
+    header #logo {
+        position: relative;
+        margin: 10px 5px;
+        height: auto;
+        width: 31px;
+    }
+    header #header_logo_div { 
+        top: -10px;
+        right: 20px;
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        background-color: var(--bgc);
+        border-width: 0.1em;
+        border-style: solid;
+        border-color: #ffffff0b;
+        box-shadow:  3px 3px 6px #00000058,
+        -3px -3px 6px #ffffff21;
+        border-radius: 100px;
+    }
+    #quit {
+        border: solid red 3px;
+        border-radius: 10px;
+        padding: 5px;
+        text-decoration: none;
+        color: red;
+        position: absolute; 
+        bottom: 5vh; 
+        right: 5vw;
+        text-align: center;
+    }
 </style>
 <body>
+    <a id="quit" href="https://undrwolf.com/templates/arithemtic.html">Quit <br> Game</a>
+    <header>
+        <a style="margin-left:20px; color: black; text-decoration: none;" href="../index.html">Home</a>
+        <a href="https://undrwolf.com/templates/login.html"> 
+            <div id="header_logo_div">
+                <img id="logo" src="https://undrwolf.com/static/img/signature3.png">
+            </div>
+        </a>
+    </header>
     <div id="gameover" class="">
-        <h1 style="font-size: 4rem; color: red;">
+        <h1 style="font-size: 3rem; color: red;">
             GAME OVER
         </h1>
         <h1 id="high_score">Score <span id="game_score">{{ score_count }}</span></h1>

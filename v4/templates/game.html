@@ -11,11 +11,21 @@
     <title>Arithmetic</title>
 </head>
 <style>
+
 a {
+    border: solid red 3px;
+    border-radius: 10px;
+    padding: 5px;
     text-decoration: none;
+    color: red;
+    position: absolute; 
+    bottom: 5vh; 
+    right: 5vw;
+    text-align: center;
 }
 </style>
 <body onload="init(),  init_countdown()">
+    <a style="" href="https://undrwolf.com/templates/arithemtic.html">Quit <br> Game</a>
     <div id="game_view" class="">
         <header>
             <p style=" font-size: small; color: #00b7ff; letter-spacing: 3px;">Draw the correct number</p>
@@ -74,6 +84,7 @@ a {
         }
         i = i-1
     }
+
     function stop_game_loop() {
         clearInterval(time_1s); time_1s = null
     }
